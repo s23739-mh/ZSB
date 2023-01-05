@@ -1,0 +1,61 @@
+body{
+    background-color:lightslategray;
+}
+
+.header{
+    position:absolute;
+    height:15vh;
+    float:left;
+}
+#main{
+float:left;
+}
+#footer{
+    float:left;
+}
+#background{
+    margin: 2vh 5vw 2vh 5vw;
+    height:85vh;
+    width:90vw;
+    background-color: rgba(202, 203, 210, 0.79);
+    box-shadow: 20px 20px 100px -30px;
+    border-radius: 50px;
+}
+
+#welcome{
+    width:90vw;
+    height:40vh;
+    margin-bottom: 10vh;
+}
+#welcome h1{
+    text-align: center;
+    margin:0 auto;
+    padding-top:5vh;
+    color:white;
+}
+#welcome b{
+    color:red;
+}
+#welcome img{
+    height:20vh;
+    margin: 0 auto;
+}
+#options button{
+    float:left;
+    height:20vh;
+    width:20vw;
+    background-color: lightslategray;
+    margin:0 12.5vw 2vh 12.5vw;
+    border-radius: 35px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    font-size: 3vw;
+    color:red;
+}
+#options button:hover{
+    background-color: red;
+    color:black;
+    transition:0.6s;
+    cursor:pointer;
+}
