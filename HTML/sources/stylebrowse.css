@@ -58,7 +58,7 @@ a{
 .delete, .add, .favourite, .options{
     background-color: red;
     height:3vh;
-    width:2vw;
+    width:3vw;
 }
 .favourite:hover, .delete:hover, .add:hover, .options:hover{
     color:white;
