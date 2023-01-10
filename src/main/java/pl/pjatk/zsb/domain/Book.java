@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "books")
@@ -26,11 +28,20 @@ public class Book {
     private Integer pubyear;
     @ApiModelProperty(value = "Book published by",required = true)
     private String publisher;
-    @ApiModelProperty(value = "Is book available",required = true)
-    private Boolean isAvailable;
+    @ApiModelProperty(value = "Id of current owner",required = true)
+    private Integer owner_ID;
+    @ApiModelProperty(value = "Id of current owner",required = true)
+    private LocalDate beginning;
+    @ApiModelProperty(value = "Id of current owner",required = true)
+    private LocalDate end;
+
+
+    public Book() {
+    }
 
     public Book(Integer id, String title, String author, Genres genre, String language,
-                Integer pubyear, String publisher, Boolean isAvailable) {
+                Integer pubyear, String publisher, Integer owner_ID, LocalDate beginning,
+                LocalDate end) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -38,57 +49,41 @@ public class Book {
         this.language = language;
         this.pubyear = pubyear;
         this.publisher = publisher;
-        this.isAvailable = isAvailable;
-    }
-
-    public Book() {
-    }
-
-    public Book(Integer id, String title, String author, Genres genre) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
+        this.owner_ID = owner_ID;
+        this.beginning = beginning;
+        this.end = end;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public Enum getGenre() {
-        return genre;
-    }
-
-    public Boolean getAvailable() {
-        return isAvailable;
-    }
-
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setAuthor(String description) {
-        this.author = description;
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Genres getGenre() {
+        return genre;
     }
 
     public void setGenre(Genres genre) {
         this.genre = genre;
-    }
-
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
     }
 
     public String getLanguage() {
@@ -113,5 +108,29 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public Integer getOwner_ID() {
+        return owner_ID;
+    }
+
+    public void setOwner_ID(Integer owner_ID) {
+        this.owner_ID = owner_ID;
+    }
+
+    public LocalDate getBeginning() {
+        return beginning;
+    }
+
+    public void setBeginning(LocalDate beginning) {
+        this.beginning = beginning;
+    }
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
+    public void setEnd(LocalDate end) {
+        this.end = end;
     }
 }

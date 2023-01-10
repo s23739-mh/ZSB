@@ -5,7 +5,7 @@ fetch("http://localhost:8080/db_library/books" )
         .then(response => response.json())
         // use (display) the JSON data
         .then(data => {
-
+            console.log(data);
             const table=document.getElementById("books");
             let subTD;
             for (let i = 0; i < data.length; i++) {
@@ -29,7 +29,15 @@ fetch("http://localhost:8080/db_library/books" )
                 subTD.innerHTML = data[i].publisher;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                subTD.innerHTML = data[i].available;
+                if(data[i].owner_ID===0||data[i].owner_ID===null){
+                    subTD.innerHTML='TAK';
+                     subTD.style.color = 'darkgreen';
+                }
+                else{
+                    subTD.innerHTML="NIE";
+                    subTD.style.color='red';
+                }
+                subTD.style.fontWeight='bold';
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = "<button class='favourite'>" +
@@ -41,5 +49,5 @@ fetch("http://localhost:8080/db_library/books" )
             content.appendChild(table);
         });
 
-
 }
+document.addEventListener("DOMContentLoaded", getBooks);
