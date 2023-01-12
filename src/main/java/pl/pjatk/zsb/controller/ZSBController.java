@@ -4,8 +4,11 @@ import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pjatk.zsb.domain.Book;
+import pl.pjatk.zsb.domain.Type;
+import pl.pjatk.zsb.domain.User;
 import pl.pjatk.zsb.service.ZSBService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,6 +21,19 @@ public class ZSBController {
         this.ZSBService = ZSBService;
     }
 
+
+    @GetMapping("/checkPassword")
+    public ResponseEntity<User> returnIfGoodPassword(@RequestParam String mail, @RequestParam String password) {
+        return ResponseEntity.ok(ZSBService.returnIfGoodPassword(mail, password));
+    }
+
+    @PostMapping("/newUser")
+    public ResponseEntity<User> newUser(@RequestParam String fname, @RequestParam String sname, @RequestParam String mail,
+                                        @RequestParam Date birthdate, @RequestParam String city, @RequestParam Type type,
+                                        @RequestParam String password) {
+        return ResponseEntity.ok(ZSBService.newUser(fname, sname, mail, birthdate, city, type, password));
+    }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
@@ -27,6 +43,7 @@ public class ZSBController {
     public ResponseEntity<List<Book>> getAllMovies() {
         return ResponseEntity.ok(ZSBService.getAll());
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
@@ -36,58 +53,64 @@ public class ZSBController {
     public ResponseEntity<Book> getExampleMovie() {
         return ResponseEntity.ok(ZSBService.getExampleBook());
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
-    @ApiOperation(value = "Get movie by id",notes = "get info about movie by id")
+    @ApiOperation(value = "Get movie by id", notes = "get info about movie by id")
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> getMovieById(@ApiParam(value = "unique id of movie", example = "123") @PathVariable Integer id) {
         return ResponseEntity.ok(ZSBService.getBookById(id));
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
-    @ApiOperation(value = "Add movie",notes = "add movie info")
+    @ApiOperation(value = "Add movie", notes = "add movie info")
     @PostMapping("/addbooks")
     public ResponseEntity<Book> addMovie(@RequestBody Book book) {
         return ResponseEntity.ok(ZSBService.addBook(book));
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
     @ApiOperation(value = "Update movie", notes = "update movie info")
     @PutMapping("/books/{id}")
-    public ResponseEntity<Book> updateMovie(@ApiParam(value = "unique id of movie", example = "123")@PathVariable Integer id, @RequestBody Book book) {
+    public ResponseEntity<Book> updateMovie(@ApiParam(value = "unique id of movie", example = "123") @PathVariable Integer id, @RequestBody Book book) {
         return ResponseEntity.ok(ZSBService.updateBook(id, book));
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
-    @ApiOperation(value = "Delete movie by id",notes = "delete movie info by id")
+    @ApiOperation(value = "Delete movie by id", notes = "delete movie info by id")
     @DeleteMapping("/books/{id}")
-    public ResponseEntity<Void> deleteMovie(@ApiParam(value = "unique id of movie", example = "123")@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteMovie(@ApiParam(value = "unique id of movie", example = "123") @PathVariable Integer id) {
         return ResponseEntity.ok().build();
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
     @ApiOperation(value = "Return movie", notes = "Make movie available after rental")
     @PutMapping("/makeAvailable/{id}")
-    public ResponseEntity<Book> makeAvailable(@ApiParam(value = "unique id of movie", example = "123")@PathVariable Integer id) {
+    public ResponseEntity<Book> makeAvailable(@ApiParam(value = "unique id of movie", example = "123") @PathVariable Integer id) {
         return ResponseEntity.ok(ZSBService.makeAvailable(id));
     }
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
     @ApiOperation(value = "Rent movie", notes = "Rent movie")
     @PutMapping("/makeNotAvailable/{id}")
-    public ResponseEntity<Book> makeNotAvailable(@ApiParam(value = "unique id of movie", example = "123")@PathVariable Integer id) {
+    public ResponseEntity<Book> makeNotAvailable(@ApiParam(value = "unique id of movie", example = "123") @PathVariable Integer id) {
         return ResponseEntity.ok(ZSBService.makeNotAvailable(id));
     }
 }

@@ -10,7 +10,6 @@ import pl.pjatk.zsb.domain.Genres;
 import pl.pjatk.zsb.repository.ZSBRepository;
 import pl.pjatk.zsb.service.ZSBService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,7 @@ public class ZSBServiceIT {
     @Test
     void shouldFindAll() {
         List<Book> books = new ArrayList<>();
-        Book book = new Book(10, "noname", "idk", Genres.HORROR,"polish",2010,"pjatk",null,null,null);
+        Book book = new Book(10, "noname", "idk", Genres.HORROR, "polish", 2010, "pjatk", null, null, null);
         books.add(1, book);
         Mockito.when(zsbRepository.findAll()).thenReturn(books);
 

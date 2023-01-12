@@ -1,123 +1,142 @@
-body{
-    background-color:lightslategray;
-    caret-color:transparent;
+body {
+    background-color: lightslategray;
+    caret-color: transparent;
 }
-a{
+
+a {
     text-decoration: none;
 }
-#background{
+
+#background {
     margin: 2vh 5vw 2vh 5vw;
-    height:85vh;
-    width:90vw;
+    height: 85vh;
+    width: 90vw;
     background-color: rgba(202, 203, 210, 0.79);
     box-shadow: 20px 20px 100px -30px;
     border-radius: 50px;
 }
-.header{
-    position:absolute;
-    height:15vh;
-    float:left;
+
+.header {
+    position: absolute;
+    height: 15vh;
+    float: left;
 }
-#logout{
-    float:right;
+
+#logout {
+    float: right;
     background-color: red;
-    padding:1vh 2vw;
+    padding: 1vh 2vw;
 }
-#logout:hover{
+
+#logout:hover {
     background-color: black;
-    color:red;
-    transition:0.6s;
-    cursor:pointer;
+    color: red;
+    transition: 0.6s;
+    cursor: pointer;
 }
-#links{
-    width:90%;
-    height:7%;
-    padding:2vh 5% 5vh 5%;
+
+#links {
+    width: 90%;
+    height: 7%;
+    padding: 2vh 5% 5vh 5%;
     text-align: center;
 }
-#links a{
+
+#links a {
     text-decoration: none;
-    color:red;
-    font-size:3vw;
+    color: red;
+    font-size: 3vw;
     background-color: lightslategray;
-    border:2px solid black;
+    border: 2px solid black;
     padding: 1vh 3vw 1vh 3vw;
-    margin:0 1vw 0 1vw;
+    margin: 0 1vw 0 1vw;
     font-weight: bold;
 }
-#current{
-    display:none;
+
+#current {
+    display: none;
 }
-#links a:hover{
-    color:white;
+
+#links a:hover {
+    color: white;
     background-color: red;
     transition: 0.6s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.delete, .add, .favourite, .options{
+.delete, .add, .favourite, .options {
     background-color: red;
-    height:3vh;
-    width:3vw;
-}
-.favourite:hover, .delete:hover, .add:hover, .options:hover{
-    color:white;
-    transition: 0.2s;
-    cursor:pointer;
+    height: 3vh;
+    width: 3vw;
 }
 
-#content{
-    height:65vh;
-    border:2px solid red;
+.favourite:hover, .delete:hover, .add:hover, .options:hover {
+    color: white;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+#content {
+    height: 65vh;
+    border: 2px solid red;
     overflow-y: scroll;
 }
-table{
-    width:90%;
+
+table {
+    width: 90%;
     text-align: center;
     border-spacing: 0;
-    margin:0 5% 0 5%;
+    margin: 0 5% 0 5%;
     table-layout: fixed;
-    margin-top:2vh;
+    margin-top: 2vh;
 }
-th{
+
+th {
     border-bottom: 2px solid black;
-    height:30px;
+    height: 30px;
 }
-tr{
+
+tr {
 
 }
-td{
+
+td {
     text-align: center;
     border-left: 2px solid black;
     border-top: 1px black dashed;
-    height:30px;
+    height: 30px;
 }
-#raports{
- text-align: center;
+
+#raports {
+    text-align: center;
 }
-.raport{
+
+.raport {
     background-color: red;
-    padding:1vh 2vw;
-    border-top:0;
-}
-.raport:hover{
-    background-color: black;
-    color:red;
-    transition:0.6s;
-    cursor:pointer;
-}
-.usersbutton{
-    background-color:lightslategray;
-    padding:1vh 2vw;
-    border:2px solid black;
+    padding: 1vh 2vw;
     border-top: 0;
-    color:red;
-    font-weight: bold;
-    font-size:1vw;
 }
-.usersbutton:hover{
-    background-color:red;
-    color:white;
-    transition:0.4s;
-    cursor:pointer;
+
+.raport:hover {
+    background-color: black;
+    color: red;
+    transition: 0.6s;
+    cursor: pointer;
+}
+
+.usersbutton {
+    background-color: lightslategray;
+    padding: 1vh 2vw;
+    border: 2px solid black;
+    border-top: 0;
+    color: red;
+    font-weight: bold;
+    font-size: 1vw;
+}
+
+.usersbutton:hover {
+    background-color: red;
+    color: white;
+    transition: 0.4s;
+    cursor: pointer;
 }
