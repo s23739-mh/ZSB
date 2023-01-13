@@ -26,9 +26,16 @@ public class ZSBService {
     private final UsersRepository usersRepository;
     private final ZSBRepository zsbRepository;
 
+
+
+
     public ZSBService(ZSBRepository zsbRepository, UsersRepository usersRepository) {
         this.zsbRepository = zsbRepository;
         this.usersRepository = usersRepository;
+    }
+
+    public List<User> getAllUsers(){
+        return usersRepository.findAll();
     }
 
     public User returnIfGoodPassword(String mail, String password) {
@@ -38,12 +45,11 @@ public class ZSBService {
 
     public User newUser(String fname, String sname, String mail, Date birthdate, String city, Type type, String password) {
         User user = new User(null, fname, sname, mail, birthdate, city, type, password);
-        System.out.println("debug!");
         usersRepository.save(user);
         return user;
     }
 
-    public List<Book> getAll() {
+    public List<Book> getAllBooks() {
         return zsbRepository.findAll();
     }
 

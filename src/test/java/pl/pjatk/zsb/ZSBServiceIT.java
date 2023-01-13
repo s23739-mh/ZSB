@@ -43,7 +43,7 @@ public class ZSBServiceIT {
         books.add(1, book);
         Mockito.when(zsbRepository.findAll()).thenReturn(books);
 
-        List<Book> all = zsbService.getAll();
+        List<Book> all = zsbService.getAllBooks();
 
         assertThat(all).hasSize(books.size());
 
@@ -54,7 +54,7 @@ public class ZSBServiceIT {
         List<Book> zoos = List.of();
         Mockito.when(zsbRepository.findAll()).thenReturn(zoos);
 
-        List<Book> all = zsbService.getAll();
+        List<Book> all = zsbService.getAllBooks();
 
         assertThat(all).isEmpty();
 

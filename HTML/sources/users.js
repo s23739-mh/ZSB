@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", isLogged);
-document.addEventListener("DOMContentLoaded", getBooks);
+document.addEventListener("DOMContentLoaded", getUsers);
 
 function deleteCookies() {
     var allCookies = document.cookie.split(';');
@@ -19,9 +19,7 @@ function isLogged() {
         "&password=" +
         allCookies[1]);
     console.log(allCookies);
-    if (allCookies.length != 3) {
-        deleteCookies();
-    } else {
+    if (allCookies.length == 3) {
 
         fetch(help)
             .then(response => response.json())
@@ -38,47 +36,31 @@ function isLogged() {
             .catch(error => {
                 deleteCookies();
             })
+    } else {
+        deleteCookies();
     }
 }
 
-function getBooks() {
-    fetch("http://localhost:8080/db_library/books")
-        // get the JSON data
-        .then(response => response.json())
-        // use (display) the JSON data
-        .then(data => {
-            // console.log(data);
-            const table = document.getElementById("books");
+function getUsers(){
+    fetch("http://localhost:8080/db_library/allUsers")
+        .then(response=>response.json())
+        .then(data=>{
+            const table = document.getElementById("users");
             let subTD;
-            for (let i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++){
                 const mainTR = document.createElement('tr');
                 subTD = document.createElement('td');
-                subTD.innerHTML = data[i].title;
+                subTD.innerHTML = data[i].fname + data[i].sname;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                subTD.innerHTML = data[i].author;
+                subTD.innerHTML = data[i].mail;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                subTD.innerHTML = data[i].genre;
+                let kratos=data[i].birthdate.split('T');;
+                subTD.innerHTML = kratos[0];
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                subTD.innerHTML = data[i].language;
-                mainTR.appendChild(subTD);
-                subTD = document.createElement('td');
-                subTD.innerHTML = data[i].pubyear;
-                mainTR.appendChild(subTD);
-                subTD = document.createElement('td');
-                subTD.innerHTML = data[i].publisher;
-                mainTR.appendChild(subTD);
-                subTD = document.createElement('td');
-                if (data[i].owner_ID === 0 || data[i].owner_ID === null) {
-                    subTD.innerHTML = 'TAK';
-                    subTD.style.color = 'darkgreen';
-                } else {
-                    subTD.innerHTML = "NIE";
-                    subTD.style.color = 'red';
-                }
-                subTD.style.fontWeight = 'bold';
+                subTD.innerHTML = data[i].city;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = "<button class='favourite'>" +
@@ -93,5 +75,5 @@ function getBooks() {
             const content = document.getElementById("content");
             content.appendChild(table);
         });
-
 }
+

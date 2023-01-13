@@ -22,6 +22,12 @@ public class ZSBController {
     }
 
 
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(ZSBService.getAllUsers());
+    }
+
     @GetMapping("/checkPassword")
     public ResponseEntity<User> returnIfGoodPassword(@RequestParam String mail, @RequestParam String password) {
         return ResponseEntity.ok(ZSBService.returnIfGoodPassword(mail, password));
@@ -41,7 +47,7 @@ public class ZSBController {
     @ApiOperation(value = "Return all zsb", notes = "info about all zsb")
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getAllMovies() {
-        return ResponseEntity.ok(ZSBService.getAll());
+        return ResponseEntity.ok(ZSBService.getAllBooks());
     }
 
     @ApiResponses({
