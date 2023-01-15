@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "books")
@@ -13,26 +12,26 @@ import java.util.Date;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(value = "Book id",required = true)
+    @ApiModelProperty(value = "Book id", required = true)
     private Integer id;
-    @ApiModelProperty(value = "Book title",required = true)
+    @ApiModelProperty(value = "Book title", required = true)
     private String title;
-    @ApiModelProperty(value = "Book author",required = true)
+    @ApiModelProperty(value = "Book author", required = true)
     private String author;
-    @ApiModelProperty(value = "Book genre",required = true)
+    @ApiModelProperty(value = "Book genre", required = true)
     @Enumerated(EnumType.STRING)
     private Genres genre;
-    @ApiModelProperty(value = "Book language",required = true)
+    @ApiModelProperty(value = "Book language", required = true)
     private String language;
-    @ApiModelProperty(value = "Published in year",required = true)
+    @ApiModelProperty(value = "Published in year", required = true)
     private Integer pubyear;
-    @ApiModelProperty(value = "Book published by",required = true)
+    @ApiModelProperty(value = "Book published by", required = true)
     private String publisher;
-    @ApiModelProperty(value = "Id of current owner",required = true)
+    @ApiModelProperty(value = "Id of current owner", required = true)
     private Integer owner_ID;
-    @ApiModelProperty(value = "Id of current owner",required = true)
+    @ApiModelProperty(value = "Id of current owner", required = true)
     private LocalDate beginning;
-    @ApiModelProperty(value = "Id of current owner",required = true)
+    @ApiModelProperty(value = "Id of current owner", required = true)
     private LocalDate end;
 
 

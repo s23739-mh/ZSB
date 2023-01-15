@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `db_library` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `db_library`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: db_library
@@ -32,8 +30,9 @@ CREATE TABLE `users` (
   `birthdate` date NOT NULL,
   `city` varchar(48) NOT NULL,
   `type` varchar(48) DEFAULT NULL,
+  `password` varchar(48) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Andrzej','Duda','andrzej.d@niel.com','2001-03-01','Bangladesz','pracownik'),(2,'Kamil','Slimak','kamil.slim@k.com','1950-12-10','Bydgoszcz','czytelnik');
+INSERT INTO `users` VALUES (1,'miko','hold','mik@hold.com','2001-03-09','gizycko','czytelnik','123456'),(2,'Kamil','Slimak','kamil.slim@k.com','1950-12-10','Bydgoszcz','czytelnik','ipsum'),(8,'Wojciech','Lula','wojciech@lu.la','2001-09-05','Giżycko','czytelnik','blondyn'),(9,'admin','root','admin@root.com','1970-01-01','Eden','pracownik','sudo');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-10 18:01:17
+-- Dump completed on 2023-01-13 19:54:38

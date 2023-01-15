@@ -1,74 +1,85 @@
-body{
-    background-color:lightslategray;
+body {
+    background-color: lightslategray;
 }
 
-#background{
+#background {
     margin: 2vh 5vw 2vh 5vw;
-    height:85vh;
-    width:90vw;
+    height: 85vh;
+    width: 90vw;
     background-color: rgba(202, 203, 210, 0.79);
     box-shadow: 20px 20px 100px -30px;
     border-radius: 50px;
 }
-.header{
-    position:absolute;
-    height:15vh;
-    float:left;
+
+.header {
+    position: absolute;
+    height: 15vh;
+    float: left;
 }
-#logout{
-    float:right;
+
+#logout {
+    float: right;
     background-color: red;
-    padding:1vh 2vw;
+    padding: 1vh 2vw;
 }
-#logout:hover{
+
+#logout:hover {
     background-color: black;
-    color:red;
-    transition:0.6s;
-    cursor:pointer;
+    color: red;
+    transition: 0.6s;
+    cursor: pointer;
 }
-#links{
-    width:90%;
-    height:7%;
-    padding:2vh 5% 5vh 5%;
+
+#links {
+    width: 90%;
+    height: 7%;
+    padding: 2vh 5% 5vh 5%;
     text-align: center;
 }
-#links a{
+
+#links a {
     text-decoration: none;
-    color:red;
-    font-size:3vw;
+    color: red;
+    font-size: 3vw;
     background-color: lightslategray;
-    border:2px solid black;
+    border: 2px solid black;
     padding: 1vh 3vw 1vh 3vw;
-    margin:0 1vw 0 1vw;
+    margin: 0 1vw 0 1vw;
     font-weight: bold;
 }
-#current{
-    display:none;
+
+#current {
+    display: none;
 }
-#links a:hover{
-    color:white;
+
+#links a:hover {
+    color: white;
     background-color: red;
     transition: 0.6s;
-    cursor:pointer;
+    cursor: pointer;
 }
-#information{
+
+#information {
     column-count: 2;
-    width:90%;
-    margin:0 5% 0 5%;
+    width: 90%;
+    margin: 0 5% 0 5%;
     padding-bottom: 1%;
     text-align: center;
-    border:2px solid red;
+    border: 2px solid red;
     border-radius: 5px;
 }
-#information h3{
-    margin-top:0;
-    padding-top:1vh;
+
+#information h3 {
+    margin-top: 0;
+    padding-top: 1vh;
 
 }
-#information p{
-    margin:0 auto;
+
+#information p {
+    margin: 0 auto;
 }
-#system_information{
-    width:90%;
-    margin:0 5% 0 5%;
+
+#system_information {
+    width: 90%;
+    margin: 0 5% 0 5%;
 }

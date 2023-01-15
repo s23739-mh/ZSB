@@ -17,7 +17,7 @@ import java.util.Collections;
 public class ZSBConfig {
 
     @Bean
-    public Docket api(){
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
@@ -25,13 +25,13 @@ public class ZSBConfig {
                 .build().apiInfo(createApiInfo());
     }
 
-    private ApiInfo createApiInfo(){
+    private ApiInfo createApiInfo() {
         return new ApiInfo(
                 "ZSB API",
                 "Library DB",
                 "1.00",
                 "TOS",
-                new Contact("Mikołaj","default url","s22982@pjwstk.edu.pl"),
+                new Contact("Mikołaj", "default url", "s22982@pjwstk.edu.pl"),
                 "my own licence",
                 "default url",
                 Collections.emptyList()

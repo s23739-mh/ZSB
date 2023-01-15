@@ -1,4 +1,14 @@
-//http://localhost:8080/db_library/books
+document.addEventListener("DOMContentLoaded", isLogged);
+document.addEventListener("DOMContentLoaded", getBooks);
+
+function deleteCookies() {
+    var allCookies = document.cookie.split(';');
+
+    for (var i = 0; i < allCookies.length; i++)
+        document.cookie = allCookies[i] + "=;expires="
+            + new Date(0).toUTCString();
+    window.location = "../sites/szopmain.html";
+}
 
 function isLogged() {
     var allCookies = document.cookie.split(',');
@@ -8,6 +18,7 @@ function isLogged() {
         allCookies[0] +
         "&password=" +
         allCookies[1]);
+    console.log(allCookies);
     if (allCookies.length != 3) {
         deleteCookies();
     } else {
@@ -18,10 +29,8 @@ function isLogged() {
                 if (data === null) {
                     deleteCookies();
                 } else {
-                    type = JSON.stringify(data.type);
-                    role = JSON.stringify("pracownik");
-                    if (type == role) {
-                        window.location = "../sites/browseop.html";
+                    if (data.type !== "pracownik") {
+                        deleteCookies();
                     }
                 }
             })
@@ -73,7 +82,11 @@ function getBooks() {
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = "<button class='favourite'>" +
-                    " <i class='fa fa-heart' aria-hidden='true'></i> </button>"
+                    " <i class='fa fa-cogs' aria-hidden='true'></i> </button>" +
+                    "<button class='delete'>" +
+                    " <i class='fa fa-trash' aria-hidden='true'></i> </button>" +
+                    "<button class='add'>" +
+                    " <i class='fa fa-plus' aria-hidden='true'></i> </button>";
                 mainTR.appendChild(subTD);
                 table.appendChild(mainTR);
             }
@@ -81,16 +94,4 @@ function getBooks() {
             content.appendChild(table);
         });
 
-}
-
-document.addEventListener("DOMContentLoaded", getBooks);
-document.addEventListener("DOMContentLoaded", isLogged);
-
-function deleteCookies() {
-    var allCookies = document.cookie.split(';');
-
-    for (var i = 0; i < allCookies.length; i++)
-        document.cookie = allCookies[i] + "=;expires="
-            + new Date(0).toUTCString();
-    window.location = "../sites/szopmain.html";
 }

@@ -1,15 +1,17 @@
 package pl.pjatk.zsb.service;
 
 import org.springframework.stereotype.Service;
-import pl.pjatk.zsb.domain.Genres;
 import pl.pjatk.zsb.domain.Book;
+import pl.pjatk.zsb.domain.Genres;
+import pl.pjatk.zsb.domain.Type;
+import pl.pjatk.zsb.domain.User;
 import pl.pjatk.zsb.repository.UsersRepository;
 import pl.pjatk.zsb.repository.ZSBRepository;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 
 
 /*
@@ -21,19 +23,38 @@ I need to join both tables on id of booked item from separate repositories
 */
 @Service
 public class ZSBService {
+    private final UsersRepository usersRepository;
+    private final ZSBRepository zsbRepository;
+
+
+
+
     public ZSBService(ZSBRepository zsbRepository, UsersRepository usersRepository) {
         this.zsbRepository = zsbRepository;
         this.usersRepository = usersRepository;
     }
-    private final UsersRepository usersRepository;
-    private final ZSBRepository zsbRepository;
 
-    public List<Book> getAll() {
+    public List<User> getAllUsers(){
+        return usersRepository.findAll();
+    }
+
+    public User returnIfGoodPassword(String mail, String password) {
+        Optional<User> byMail = usersRepository.findByMailAndPassword(mail, password);
+        return byMail.orElse(null);
+    }
+
+    public User newUser(String fname, String sname, String mail, Date birthdate, String city, Type type, String password) {
+        User user = new User(null, fname, sname, mail, birthdate, city, type, password);
+        usersRepository.save(user);
+        return user;
+    }
+
+    public List<Book> getAllBooks() {
         return zsbRepository.findAll();
     }
 
     public Book getExampleBook() {
-        Book book = new Book(10, "noname", "idk", Genres.HORROR,"polish",2010,"pjatk",null, LocalDate.now(),null);
+        Book book = new Book(10, "noname", "idk", Genres.HORROR, "polish", 2010, "pjatk", null, LocalDate.now(), null);
         zsbRepository.save(book);
         return book;
     }
@@ -67,6 +88,7 @@ public class ZSBService {
         book.setOwner_ID(1);
         return zsbRepository.save(book);
     }
+
     public Book findById(Integer id) {
         Book book = null; // DB query
         Optional<Book> byId = zsbRepository.findById(id);

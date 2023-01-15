@@ -23,5 +23,5 @@ public enum Genres {
     HISTORY,
     TRAVEL,
     GUIDE,
-    HUMOR;
+    HUMOR
 }
