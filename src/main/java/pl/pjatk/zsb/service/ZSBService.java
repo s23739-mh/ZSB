@@ -2,8 +2,10 @@ package pl.pjatk.zsb.service;
 
 import org.springframework.stereotype.Service;
 import pl.pjatk.zsb.domain.Book;
+import pl.pjatk.zsb.domain.Favourite;
 import pl.pjatk.zsb.domain.Type;
 import pl.pjatk.zsb.domain.User;
+import pl.pjatk.zsb.repository.FavouriteRepository;
 import pl.pjatk.zsb.repository.UsersRepository;
 import pl.pjatk.zsb.repository.ZSBRepository;
 
@@ -13,22 +15,31 @@ import java.util.List;
 import java.util.Optional;
 
 
-/*
-There shall be only one service created for both repositories,
-since the data from both of them has some relation.
-This solution is much less clear but is necessary
-example: I want to check which user has the book with id=1, so
-I need to join both tables on id of booked item from separate repositories
-*/
 @Service
 public class ZSBService {
     private final UsersRepository usersRepository;
     private final ZSBRepository zsbRepository;
+    private final FavouriteRepository favouriteRepository;
 
-
-    public ZSBService(ZSBRepository zsbRepository, UsersRepository usersRepository) {
+    public ZSBService(ZSBRepository zsbRepository, UsersRepository usersRepository,
+                      FavouriteRepository favouriteRepository) {
         this.zsbRepository = zsbRepository;
         this.usersRepository = usersRepository;
+        this.favouriteRepository = favouriteRepository;
+    }
+
+    public Favourite addFavourite(Integer id_book, String mail_user) {
+        Favourite favourite = new Favourite(null, id_book, mail_user);
+        return favouriteRepository.save(favourite);
+    }
+
+    @Transactional
+    public void removeFavourite(Integer id_book, String mail_user) {
+        favouriteRepository.deleteFavouriteById_bookAndMail_user(id_book, mail_user);
+    }
+
+    public List<Favourite> getFavourites(String mail_user) {
+        return favouriteRepository.getFavouritesByMail_user(mail_user);
     }
 
     public User getUser(String mail) {
@@ -59,6 +70,10 @@ public class ZSBService {
         return zsbRepository.findAll();
     }
 
+    public List<Book> getAllBooksByMail(String mail) {
+        return zsbRepository.findBooksByOwner_mail(mail);
+    }
+
     public Book getBookById(int id) {
         Optional<Book> byId = zsbRepository.findById(id);
         return byId.orElse(null);
@@ -75,7 +90,6 @@ public class ZSBService {
 
 
     public Book findById(Integer id) {
-        Book book = null; // DB query
         Optional<Book> byId = zsbRepository.findById(id);
         return byId.orElse(null);
     }

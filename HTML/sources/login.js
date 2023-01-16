@@ -12,7 +12,7 @@ function checkLogin() {
             }
             document.cookie = mail + "," + password + ",";
             let cookies = document.cookie;
-            if (data.type == "czytelnik") {
+            if (data.type == "pracownik") {
                 window.location = "../sites/browseop.html"
             } else {
                 console.log(data.type);
@@ -22,6 +22,7 @@ function checkLogin() {
         .catch(error => {
             console.log("Wrong??");
         })
+    return false;
 }
 
 function register() {
@@ -63,5 +64,5 @@ function deleteCookies() {
     for (var i = 0; i < allCookies.length; i++)
         document.cookie = allCookies[i] + "=;expires="
             + new Date(0).toUTCString();
-
+    return false;
 }

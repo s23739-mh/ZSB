@@ -3,10 +3,7 @@ package pl.pjatk.zsb.controller;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.pjatk.zsb.domain.Book;
-import pl.pjatk.zsb.domain.Genres;
-import pl.pjatk.zsb.domain.Type;
-import pl.pjatk.zsb.domain.User;
+import pl.pjatk.zsb.domain.*;
 import pl.pjatk.zsb.service.ZSBService;
 
 import java.util.Date;
@@ -22,6 +19,22 @@ public class ZSBController {
         this.ZSBService = ZSBService;
     }
 
+
+    @GetMapping("/getFavourites")
+    public ResponseEntity<List<Favourite>> getFavourites(@RequestParam String mail_user) {
+        return ResponseEntity.ok(ZSBService.getFavourites(mail_user));
+    }
+
+    @PostMapping("/newFavourite")
+    public ResponseEntity<Favourite> newFavourite(@RequestParam Integer id_book, @RequestParam String mail_user) {
+        return ResponseEntity.ok(ZSBService.addFavourite(id_book, mail_user));
+    }
+
+    @DeleteMapping("/deleteFavourite")
+    public ResponseEntity<Void> deleteFavourite(@RequestParam Integer id_book, @RequestParam String mail_user) {
+        ZSBService.removeFavourite(id_book, mail_user);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/getUser")
     public ResponseEntity<User> getUser(@RequestParam String mail) {
@@ -49,6 +62,11 @@ public class ZSBController {
                                         @RequestParam Date birthdate, @RequestParam String city, @RequestParam Type type,
                                         @RequestParam String password) {
         return ResponseEntity.ok(ZSBService.newUser(fname, sname, mail, birthdate, city, type, password));
+    }
+
+    @GetMapping("/getBookByMail")
+    public ResponseEntity<List<Book>> getBookByMail(@RequestParam String mail) {
+        return ResponseEntity.ok(ZSBService.getAllBooksByMail(mail));
     }
 
     @ApiResponses({

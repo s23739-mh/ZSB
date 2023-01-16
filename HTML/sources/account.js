@@ -9,6 +9,9 @@ function deleteCookies() {
     window.location = "../sites/szopmain.html";
 }
 
+var global = [];
+var mail = "";
+
 function isLogged() {
     var allCookies = document.cookie.split(',');
     var help = ("http://localhost:8080/db_library/" +
@@ -17,7 +20,6 @@ function isLogged() {
         allCookies[0] +
         "&password=" +
         allCookies[1]);
-    console.log(allCookies);
     if (allCookies.length == 3) {
 
         fetch(help)
@@ -50,7 +52,7 @@ function isLogged() {
                 table.appendChild(p);
 
                 let kratos = data.birthdate.split('T');
-                ;
+
                 h = document.createElement('h3');
                 h.innerHTML = "Data urodzenia";
                 p = document.createElement('p');
@@ -71,27 +73,50 @@ function isLogged() {
                     let x = document.getElementById("buttonop");
                     x.parentNode.removeChild(x);
                 }
-
-
-                h = document.createElement('h3');
-                h.innerHTML = "Obecne wypożyczenie";
-                p = document.createElement('p');
-                p.innerHTML = data.type;
-                sys_info.appendChild(h);
-                sys_info.appendChild(p);
-
-                h = document.createElement('h3');
-                h.innerHTML = "Ulubione książki";
-                p = document.createElement('p');
-                p.innerHTML = data.type;
-                sys_info.appendChild(h);
-                sys_info.appendChild(p);
+                mail = data.mail;
+                var help2 = "http://localhost:8080/db_library/getBookByMail?mail=" + data.mail;
+                return fetch(help2);
             })
-
+            .then(response => response.json())
+            .then(data => {
+                var booking = document.getElementById("booking");
+                let placeholder = "";
+                for (let i = 0; i < data.length; i++) {
+                    placeholder += data[i].title + "</br>";
+                }
+                booking.innerHTML = placeholder;
+                var help3 = "http://localhost:8080/db_library/getFavourites?mail_user=" + mail;
+                return fetch(help3);
+            })
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {
+                    global.push(data[i].id_book);
+                }
+                return getFavourites();
+            })
             .catch(error => {
                 deleteCookies();
             })
+
     } else {
         deleteCookies();
     }
+}
+
+function getFavourites() {
+    var help4 = "http://localhost:8080/db_library/book?id=";
+    var help5 = "";
+    for (let i = 0; i < global.length; i++) {
+        help5 = help4 + global[i];
+        fetch(help5)
+            .then(response => response.json())
+            .then(data => {
+                var favourites = document.getElementById("favourites");
+                var p = document.createElement('p');
+                p.innerHTML = data.title;
+                favourites.appendChild(p);
+            })
+    }
+    return false;
 }

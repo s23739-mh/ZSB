@@ -1,5 +1,7 @@
 //http://localhost:8080/db_library/books
 
+var cmail = "";
+
 function isLogged() {
     var allCookies = document.cookie.split(',');
     var help = ("http://localhost:8080/db_library/" +
@@ -8,6 +10,7 @@ function isLogged() {
         allCookies[0] +
         "&password=" +
         allCookies[1]);
+    cmail = allCookies[0];
     if (allCookies.length != 3) {
         deleteCookies();
     } else {
@@ -62,7 +65,7 @@ function getBooks() {
                 subTD.innerHTML = data[i].publisher;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                if (data[i].owner_ID === 0 || data[i].owner_ID === null) {
+                if (data[i].owner_ID == "" || data[i].owner_ID == null) {
                     subTD.innerHTML = 'TAK';
                     subTD.style.color = 'darkgreen';
                 } else {
@@ -73,7 +76,9 @@ function getBooks() {
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = "<button class='favourite'>" +
-                    " <i class='fa fa-heart' aria-hidden='true'></i> </button>"
+                    " <i class='fa fa-heart' aria-hidden='true' onclick='addFavourite(\"" + data[i].id + "\")'></i> </button>" +
+                    "<button class='favourite'>" +
+                    " <i class='fa fa-times' aria-hidden='true' onclick='removeFavourite(\"" + data[i].id + "\")'></i> </button>"
                 mainTR.appendChild(subTD);
                 table.appendChild(mainTR);
             }
@@ -93,4 +98,26 @@ function deleteCookies() {
         document.cookie = allCookies[i] + "=;expires="
             + new Date(0).toUTCString();
     window.location = "../sites/szopmain.html";
+}
+
+function addFavourite(id) {
+    var help = "http://localhost:8080/db_library/newFavourite?id_book=" + id +
+        "&mail_user=" + cmail;
+    fetch(help, {method: 'POST'})
+        .then(response => response.json())
+        .then(data => {
+            location.reload();
+        })
+}
+
+function removeFavourite(id) {
+    var help = "http://localhost:8080/db_library/deleteFavourite?id_book=" + id +
+        "&mail_user=" + cmail;
+    fetch(help, {method: 'DELETE'})
+        .then(response => response.json())
+        .then(data => {
+            location.reload();
+        }).catch(error => {
+        alert("Nie masz tej książki ulubionej");
+    })
 }
