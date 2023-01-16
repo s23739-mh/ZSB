@@ -18,10 +18,7 @@ public enum Genres {
     COOKBOOK,
     ART,
     DEVELOPMENT,
-    MOTIVATIONAL,
     HEALTH,
     HISTORY,
-    TRAVEL,
-    GUIDE,
     HUMOR
 }

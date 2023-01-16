@@ -18,7 +18,6 @@ function isLogged() {
         allCookies[0] +
         "&password=" +
         allCookies[1]);
-    console.log(allCookies);
     if (allCookies.length == 3) {
 
         fetch(help)
@@ -41,22 +40,23 @@ function isLogged() {
     }
 }
 
-function getUsers(){
+function getUsers() {
     fetch("http://localhost:8080/db_library/allUsers")
-        .then(response=>response.json())
-        .then(data=>{
+        .then(response => response.json())
+        .then(data => {
             const table = document.getElementById("users");
             let subTD;
-            for (let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 const mainTR = document.createElement('tr');
                 subTD = document.createElement('td');
-                subTD.innerHTML = data[i].fname + data[i].sname;
+                subTD.innerHTML = data[i].fname + " " + data[i].sname;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = data[i].mail;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                let kratos=data[i].birthdate.split('T');;
+                let kratos = data[i].birthdate.split('T');
+                ;
                 subTD.innerHTML = kratos[0];
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
@@ -64,11 +64,11 @@ function getUsers(){
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = "<button class='favourite'>" +
-                    " <i class='fa fa-cogs' aria-hidden='true'></i> </button>" +
+                    " <i class='fa fa-cogs' aria-hidden='true' onclick='editUser(\"" + data[i].mail + "\")'></i> </button>" +
                     "<button class='delete'>" +
-                    " <i class='fa fa-trash' aria-hidden='true'></i> </button>" +
+                    " <i class='fa fa-trash' aria-hidden='true' onclick='deleteUser(\"" + data[i].mail + "\")'></i> </button>" +
                     "<button class='add'>" +
-                    " <i class='fa fa-plus' aria-hidden='true'></i> </button>";
+                    " <i class='fa fa-plus' aria-hidden='true' onclick='addUser()'></i> </button>";
                 mainTR.appendChild(subTD);
                 table.appendChild(mainTR);
             }
@@ -77,3 +77,17 @@ function getUsers(){
         });
 }
 
+function deleteUser(x) {
+    var help = "http://localhost:8080/db_library/removeUser?mail=" + x;
+    fetch(help, {method: 'DELETE'});
+    window.location.reload();
+}
+
+function addUser() {
+    window.location = "../sites/addUser.html";
+}
+
+function editUser(x) {
+    console.log(x);
+    window.location = "../sites/addUser.html?mail=" + x;
+}

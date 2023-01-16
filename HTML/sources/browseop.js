@@ -18,7 +18,6 @@ function isLogged() {
         allCookies[0] +
         "&password=" +
         allCookies[1]);
-    console.log(allCookies);
     if (allCookies.length != 3) {
         deleteCookies();
     } else {
@@ -82,11 +81,11 @@ function getBooks() {
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
                 subTD.innerHTML = "<button class='favourite'>" +
-                    " <i class='fa fa-cogs' aria-hidden='true'></i> </button>" +
+                    " <i class='fa fa-cogs' aria-hidden='true' onclick='editBook(\"" + data[i].id + "\")'></i> </button>" +
                     "<button class='delete'>" +
-                    " <i class='fa fa-trash' aria-hidden='true'></i> </button>" +
+                    " <i class='fa fa-trash' aria-hidden='true' onclick='deleteBook(\"" + data[i].id + "\")'></i> </button>" +
                     "<button class='add'>" +
-                    " <i class='fa fa-plus' aria-hidden='true'></i> </button>";
+                    " <i class='fa fa-plus' aria-hidden='true' onclick='addUser()'></i> </button>";
                 mainTR.appendChild(subTD);
                 table.appendChild(mainTR);
             }
@@ -95,3 +94,21 @@ function getBooks() {
         });
 
 }
+
+function editBook(x) {
+    window.location = "../sites/addBook.html?id=" + x;
+}
+
+function deleteBook(x) {
+    var help = "http://localhost:8080/db_library/removeBook?id=" + x;
+    fetch(help, {method: 'DELETE'});
+    window.location.reload();
+}
+
+function addUser() {
+    window.location = "../sites/addBook.html";
+}
+
+//http://localhost:8080/db_library/book?id=1
+
+//http://localhost:8080/db_library/removeBook?id=1

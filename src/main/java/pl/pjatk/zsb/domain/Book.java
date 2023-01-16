@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "books")
@@ -28,19 +28,19 @@ public class Book {
     @ApiModelProperty(value = "Book published by", required = true)
     private String publisher;
     @ApiModelProperty(value = "Id of current owner", required = true)
-    private Integer owner_ID;
+    private String owner_mail;
     @ApiModelProperty(value = "Id of current owner", required = true)
-    private LocalDate beginning;
+    private Date beginning;
     @ApiModelProperty(value = "Id of current owner", required = true)
-    private LocalDate end;
+    private Date end;
 
 
     public Book() {
     }
 
     public Book(Integer id, String title, String author, Genres genre, String language,
-                Integer pubyear, String publisher, Integer owner_ID, LocalDate beginning,
-                LocalDate end) {
+                Integer pubyear, String publisher, String owner_mail, Date beginning,
+                Date end) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -48,7 +48,7 @@ public class Book {
         this.language = language;
         this.pubyear = pubyear;
         this.publisher = publisher;
-        this.owner_ID = owner_ID;
+        this.owner_mail = owner_mail;
         this.beginning = beginning;
         this.end = end;
     }
@@ -109,27 +109,27 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Integer getOwner_ID() {
-        return owner_ID;
+    public String getOwner_mail() {
+        return owner_mail;
     }
 
-    public void setOwner_ID(Integer owner_ID) {
-        this.owner_ID = owner_ID;
+    public void setOwner_mail(String owner_mail) {
+        this.owner_mail = owner_mail;
     }
 
-    public LocalDate getBeginning() {
+    public Date getBeginning() {
         return beginning;
     }
 
-    public void setBeginning(LocalDate beginning) {
+    public void setBeginning(Date beginning) {
         this.beginning = beginning;
     }
 
-    public LocalDate getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDate end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 }

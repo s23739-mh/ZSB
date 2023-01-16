@@ -18,4 +18,7 @@ public interface UsersRepository extends JpaRepository<User, Integer> {
 
     User save(User user);
 
+    void deleteByMail(String mail);
+
+    User getUserByMail(String mail);
 }

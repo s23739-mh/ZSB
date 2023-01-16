@@ -2,13 +2,12 @@ package pl.pjatk.zsb.service;
 
 import org.springframework.stereotype.Service;
 import pl.pjatk.zsb.domain.Book;
-import pl.pjatk.zsb.domain.Genres;
 import pl.pjatk.zsb.domain.Type;
 import pl.pjatk.zsb.domain.User;
 import pl.pjatk.zsb.repository.UsersRepository;
 import pl.pjatk.zsb.repository.ZSBRepository;
 
-import java.time.LocalDate;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +26,16 @@ public class ZSBService {
     private final ZSBRepository zsbRepository;
 
 
-
-
     public ZSBService(ZSBRepository zsbRepository, UsersRepository usersRepository) {
         this.zsbRepository = zsbRepository;
         this.usersRepository = usersRepository;
     }
 
-    public List<User> getAllUsers(){
+    public User getUser(String mail) {
+        return usersRepository.getUserByMail(mail);
+    }
+
+    public List<User> getAllUsers() {
         return usersRepository.findAll();
     }
 
@@ -49,14 +50,13 @@ public class ZSBService {
         return user;
     }
 
-    public List<Book> getAllBooks() {
-        return zsbRepository.findAll();
+    @Transactional
+    public void removeUser(String mail) {
+        usersRepository.deleteByMail(mail);
     }
 
-    public Book getExampleBook() {
-        Book book = new Book(10, "noname", "idk", Genres.HORROR, "polish", 2010, "pjatk", null, LocalDate.now(), null);
-        zsbRepository.save(book);
-        return book;
+    public List<Book> getAllBooks() {
+        return zsbRepository.findAll();
     }
 
     public Book getBookById(int id) {
@@ -68,26 +68,11 @@ public class ZSBService {
         return zsbRepository.save(book);
     }
 
-    public Book updateBook(Integer id, Book book) {
-        zsbRepository.save(book);
-        return book;
-    }
-
+    @Transactional
     public void deleteBook(Integer id) {
         zsbRepository.deleteById(id);
     }
 
-    public Book makeAvailable(Integer id) {
-        Book book = getBookById(id);
-        book.setOwner_ID(0);
-        return zsbRepository.save(book);
-    }
-
-    public Book makeNotAvailable(Integer id) {
-        Book book = getBookById(id);
-        book.setOwner_ID(1);
-        return zsbRepository.save(book);
-    }
 
     public Book findById(Integer id) {
         Book book = null; // DB query
