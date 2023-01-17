@@ -79,3 +79,16 @@ body {
 input {
     margin-bottom: 30px;
 }
+
+#logout {
+    float: right;
+    background-color: red;
+    padding: 1vh 2vw;
+}
+
+#logout:hover {
+    background-color: black;
+    color: red;
+    transition: 0.6s;
+    cursor: pointer;
+}

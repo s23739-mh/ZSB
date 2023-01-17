@@ -22,9 +22,10 @@
 DROP TABLE IF EXISTS `favourites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `favourites` (
-  `id_book` int NOT NULL,
-  `id_user` int NOT NULL
+CREATE TABLE `favourites`
+(
+    `id_book` int NOT NULL,
+    `id_user` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -32,10 +33,12 @@ CREATE TABLE `favourites` (
 -- Dumping data for table `favourites`
 --
 
-LOCK TABLES `favourites` WRITE;
+LOCK
+TABLES `favourites` WRITE;
 /*!40000 ALTER TABLE `favourites` DISABLE KEYS */;
 /*!40000 ALTER TABLE `favourites` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

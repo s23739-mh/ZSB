@@ -22,18 +22,19 @@
 DROP TABLE IF EXISTS `books`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `books` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(48) NOT NULL,
-  `author` varchar(48) NOT NULL,
-  `genre` varchar(32) NOT NULL,
-  `language` varchar(32) NOT NULL,
-  `pubyear` int NOT NULL,
-  `publisher` varchar(48) NOT NULL,
-  `owner_ID` int DEFAULT NULL,
-  `beginning` date DEFAULT NULL,
-  `end` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `books`
+(
+    `id`        int         NOT NULL AUTO_INCREMENT,
+    `title`     varchar(48) NOT NULL,
+    `author`    varchar(48) NOT NULL,
+    `genre`     varchar(32) NOT NULL,
+    `language`  varchar(32) NOT NULL,
+    `pubyear`   int         NOT NULL,
+    `publisher` varchar(48) NOT NULL,
+    `owner_ID`  int  DEFAULT NULL,
+    `beginning` date DEFAULT NULL,
+    `end`       date DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,11 +42,20 @@ CREATE TABLE `books` (
 -- Dumping data for table `books`
 --
 
-LOCK TABLES `books` WRITE;
+LOCK
+TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'noname','idk','HORROR','polish',2010,'pjatk',1,NULL,NULL),(2,'noname','idk','HORROR','polish',2010,'pjatk',1,NULL,NULL),(3,'noname','idk','HORROR','polish',2010,'pjatk',1,NULL,NULL),(4,'noname','idk','HORROR','polish',2010,'pjatk',1,NULL,NULL),(5,'noname','idk','HORROR','polish',2010,'pjatk',1,NULL,NULL),(6,'noname','idk','HORROR','polish',2010,'pjatk',1,NULL,NULL),(7,'noname','idk','HORROR','polish',2010,'pjatk',NULL,'2023-01-10',NULL);
+INSERT INTO `books`
+VALUES (1, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', 1, NULL, NULL),
+       (2, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', 1, NULL, NULL),
+       (3, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', 1, NULL, NULL),
+       (4, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', 1, NULL, NULL),
+       (5, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', 1, NULL, NULL),
+       (6, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', 1, NULL, NULL),
+       (7, 'noname', 'idk', 'HORROR', 'polish', 2010, 'pjatk', NULL, '2023-01-10', NULL);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
