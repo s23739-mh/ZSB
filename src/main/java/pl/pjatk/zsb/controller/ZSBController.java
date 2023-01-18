@@ -4,8 +4,11 @@ import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pjatk.zsb.domain.*;
+import pl.pjatk.zsb.repository.RentRepository;
+import pl.pjatk.zsb.repository.ZSBRepository;
 import pl.pjatk.zsb.service.ZSBService;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +17,41 @@ import java.util.List;
 @Api("/api/tasks")
 public class ZSBController {
     private final ZSBService ZSBService;
+    private final ZSBRepository zsbRepository;
 
-    public ZSBController(ZSBService ZSBService) {
+    private final RentRepository rentRepository;
+
+    public ZSBController(ZSBService ZSBService,
+                         ZSBRepository zsbRepository, RentRepository rentRepository) {
         this.ZSBService = ZSBService;
+        this.zsbRepository = zsbRepository;
+        this .rentRepository = rentRepository;
     }
-
 
     @GetMapping("/getFavourites")
     public ResponseEntity<List<Favourite>> getFavourites(@RequestParam String mail_user) {
         return ResponseEntity.ok(ZSBService.getFavourites(mail_user));
+    }
+
+    @GetMapping("/example")
+    @ApiOperation(value = "Example endpoint", notes = "This is example endpoint")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = String.class),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    public ResponseEntity<String> example() {
+        return ResponseEntity.ok("Example");
+    }
+
+
+    @GetMapping("/books/example")
+    @ApiOperation(value = "Example book endpoint", notes = "This is example endpoint returning example book")
+    public ResponseEntity<Book> getSampleBook() {
+        Book sampleBook = ZSBService.getExampleBook();
+        if (sampleBook == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(sampleBook);
     }
 
     @PostMapping("/newFavourite")
@@ -75,7 +104,7 @@ public class ZSBController {
     })
     @ApiOperation(value = "Return all zsb", notes = "info about all zsb")
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAllMovies() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(ZSBService.getAllBooks());
     }
 
@@ -84,30 +113,90 @@ public class ZSBController {
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
 
-    @ApiOperation(value = "Get movie by id", notes = "get info about movie by id")
-    @GetMapping("/book")
-    public ResponseEntity<Book> getMovieById(@ApiParam(value = "unique id of movie", example = "123") @RequestParam Integer id) {
-        return ResponseEntity.ok(ZSBService.getBookById(id));
+    @ApiOperation(value = "Get book by id", notes = "get info about book by id")
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Integer id) {
+        Book book = ZSBService.getBookById(id);
+        if (book == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(book);
     }
 
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Book[].class),
             @ApiResponse(code = 400, message = "Bad request", response = Book.class)
     })
-    @ApiOperation(value = "Add movie", notes = "add movie info")
+    @ApiOperation(value = "Add book", notes = "add book info")
     @PostMapping("/addBook")
-    public ResponseEntity<Book> addMovie(@RequestParam Integer id, @RequestParam String title, @RequestParam String author, @RequestParam Genres genre,
+    public ResponseEntity<Book> addBook(@RequestParam Integer id, @RequestParam String title, @RequestParam String author, @RequestParam Genres genre,
                                          @RequestParam String language, @RequestParam Integer pubyear, @RequestParam String publisher,
                                          @RequestParam String owner_ID, @RequestParam Date beginning, @RequestParam Date end) {
         Book book = new Book(id, title, author, genre, language, pubyear, publisher, owner_ID, beginning, end);
         return ResponseEntity.ok(ZSBService.addBook(book));
     }
 
-    @ApiOperation(value = "Delete movie by id", notes = "delete movie info by id")
+    @ApiOperation(value = "Delete movie by id", notes = "delete book info by id")
     @DeleteMapping("/removeBook")
     public ResponseEntity<Void> deleteBook(@RequestParam Integer id) {
         ZSBService.deleteBook(id);
         return ResponseEntity.ok().build();
+    }
+
+
+    @ApiOperation(value = "Get book by title", notes = "get info about book by title")
+    @GetMapping("/books/title/{title}")
+    public ResponseEntity<Book> getBookByTitle(@PathVariable(value = "title") String title) {
+        Book book = ZSBService.getBookByTitle(title);
+        if (book == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(book);
+    }
+
+    @ApiOperation(value = "Get book by genre", notes = "get book by genre")
+    @GetMapping("/books/genre/{genre}")
+    public ResponseEntity<List<Book>> getBookByGenre(@PathVariable(value = "genre") Genres genre) {
+        List<Book> book = ZSBService.getBookByGenre(genre);
+        if (book == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(book);
+    }
+    @ApiOperation(value = "Book a book", notes = "Book a book from the library")
+    @PostMapping("/books/{id}/rent")
+    public ResponseEntity<Book> rentBook(@PathVariable(value = "id") Integer id, @RequestBody RentDTO rentDTO) {
+        Book book = zsbRepository.findById(id).orElse(null);
+        if (book == null) {
+            return ResponseEntity.notFound().build();
+        }
+        if (!book.isAvailable()) {
+            return ResponseEntity.badRequest().body(book);
+        }
+        Date beginning = rentDTO.getBeginning();
+        int days = rentDTO.getDays();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(beginning);
+        calendar.add(Calendar.DATE, days);
+        Date end = calendar.getTime();
+        book.setBeginning(beginning);
+        book.setEnd(end);
+        book.setAvailable(false);
+        zsbRepository.save(book);
+        Rent rent = new Rent(rentDTO.getMail(), book);
+        rentRepository.save(rent);
+        return ResponseEntity.ok().body(book);
+    }
+    @ApiOperation(value = "Admin set book available", notes = "Allows admin to set a book available")
+    @PostMapping("/books/{id}/return")
+    public ResponseEntity<Book> setBookAvailable(@PathVariable(value = "id") Integer id) {
+        Book book = zsbRepository.findById(id).orElse(null);
+        if (book == null) {
+            return ResponseEntity.notFound().build();
+        }
+        book.setAvailable(true);
+        zsbRepository.save(book);
+        return ResponseEntity.ok().body(book);
     }
 
 }

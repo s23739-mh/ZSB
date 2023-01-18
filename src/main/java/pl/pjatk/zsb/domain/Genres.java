@@ -20,5 +20,6 @@ public enum Genres {
     DEVELOPMENT,
     HEALTH,
     HISTORY,
-    HUMOR
+    HUMOR,
+    TEST // for testing purposes
 }

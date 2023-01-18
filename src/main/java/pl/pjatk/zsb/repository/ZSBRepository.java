@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.pjatk.zsb.domain.Book;
+import pl.pjatk.zsb.domain.Genres;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,8 @@ public interface ZSBRepository extends JpaRepository<Book, Integer> {
     List<Book> findBooksByOwner_mail(String mail);
 
     void deleteById(Integer id);
+
+    Book getBookByTitle(String title);
+
+    List<Book> getBookByGenre(Genres genre);
 }

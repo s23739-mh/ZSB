@@ -16,35 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `books`
+-- Table structure for table `rent`
 --
 
-DROP TABLE IF EXISTS `books`;
+DROP TABLE IF EXISTS `rent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `books` (
+CREATE TABLE `rent` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(48) NOT NULL,
-  `author` varchar(48) NOT NULL,
-  `genre` varchar(32) NOT NULL,
-  `language` varchar(32) NOT NULL,
-  `pubyear` int NOT NULL,
-  `publisher` varchar(48) NOT NULL,
-  `owner_mail` varchar(30) DEFAULT NULL,
-  `beginning` date DEFAULT NULL,
-  `end` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `mail` varchar(48) NOT NULL,
+  `book_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `book_id` (`book_id`),
+  CONSTRAINT `rent_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `books`
+-- Dumping data for table `rent`
 --
 
-LOCK TABLES `books` WRITE;
-/*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'noname','idk','HORROR','polish',2010,'pjatk','1',NULL,NULL),(2,'noname','idk','HORROR','polish',2010,'pjatk','1',NULL,NULL),(3,'noname','idk','HORROR','polish',2010,'pjatk','1',NULL,NULL),(4,'noname','idk','HORROR','polish',2010,'pjatk','1',NULL,NULL),(5,'noname','idk','HORROR','polish',2010,'pjatk','1',NULL,NULL),(6,'noname','idk','HORROR','polish',2010,'pjatk','1',NULL,NULL),(7,'noname','idk','HORROR','polish',2010,'pjatk',NULL,'2023-01-10',NULL),(8,'test','test','TEST','test',1111,'test',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `books` ENABLE KEYS */;
+LOCK TABLES `rent` WRITE;
+/*!40000 ALTER TABLE `rent` DISABLE KEYS */;
+INSERT INTO `rent` VALUES (1,'test@example.com',8),(2,'test@example.com',8);
+/*!40000 ALTER TABLE `rent` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-18 22:01:01
+-- Dump completed on 2023-01-18 22:01:00

@@ -50,15 +50,17 @@ public class ZSBServiceIT {
     }
 
     @Test
-    void shouldGetEmptyZooList() {
-        List<Book> zoos = List.of();
-        Mockito.when(zsbRepository.findAll()).thenReturn(zoos);
+    void shouldGetEmptyBookList() {
+        List<Book> books = List.of();
+        Mockito.when(zsbRepository.findAll()).thenReturn(books);
 
         List<Book> all = zsbService.getAllBooks();
 
         assertThat(all).isEmpty();
 
     }
+
+
 
 
 }

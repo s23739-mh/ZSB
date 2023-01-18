@@ -27,11 +27,11 @@ public class Book {
     private Integer pubyear;
     @ApiModelProperty(value = "Book published by", required = true)
     private String publisher;
-    @ApiModelProperty(value = "Id of current owner", required = true)
+    @ApiModelProperty(value = "E-mail adress of current owner", required = true)
     private String owner_mail;
-    @ApiModelProperty(value = "Id of current owner", required = true)
+    @ApiModelProperty(value = "Reservation date", required = true)
     private Date beginning;
-    @ApiModelProperty(value = "Id of current owner", required = true)
+    @ApiModelProperty(value = "Reservation end date", required = true)
     private Date end;
 
 
@@ -131,5 +131,22 @@ public class Book {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+
+    public void setAvailable(boolean b) {
+        if (b) {
+            this.owner_mail = null;
+            this.beginning = null;
+            this.end = null;
+        }
+    }
+
+    public boolean isAvailable() {
+        if (beginning == null && end == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

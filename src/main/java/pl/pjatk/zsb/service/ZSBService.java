@@ -1,10 +1,7 @@
 package pl.pjatk.zsb.service;
 
 import org.springframework.stereotype.Service;
-import pl.pjatk.zsb.domain.Book;
-import pl.pjatk.zsb.domain.Favourite;
-import pl.pjatk.zsb.domain.Type;
-import pl.pjatk.zsb.domain.User;
+import pl.pjatk.zsb.domain.*;
 import pl.pjatk.zsb.repository.FavouriteRepository;
 import pl.pjatk.zsb.repository.UsersRepository;
 import pl.pjatk.zsb.repository.ZSBRepository;
@@ -93,4 +90,18 @@ public class ZSBService {
         Optional<Book> byId = zsbRepository.findById(id);
         return byId.orElse(null);
     }
+
+    public Book getBookByTitle(String title) {
+        return zsbRepository.getBookByTitle(title);
+    }
+
+    private Book exampleBook = new Book(1, "Harry Potter", "J.K. Rowling", Genres.HORROR, "English", 2000, "Good", "John Doe", null,null);
+    public Book getExampleBook() {
+        return exampleBook;
+    }
+
+    public List<Book> getBookByGenre(Genres genre) {
+        return zsbRepository.getBookByGenre(genre);
+    }
+
 }
