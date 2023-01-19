@@ -9,6 +9,7 @@ import pl.pjatk.zsb.repository.ZSBRepository;
 import pl.pjatk.zsb.service.ZSBService;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -198,6 +199,24 @@ public class ZSBController {
         zsbRepository.save(book);
         return ResponseEntity.ok().body(book);
     }
+    @ApiOperation(value = "Get all rents", notes = "Get all rents")
+    @GetMapping("/rents")
+    public ResponseEntity<List<Rent>> getAllRents() {
+        return ResponseEntity.ok(rentRepository.findAll());
+    }
+
+    @ApiOperation(value = "Get all rents by mail", notes = "Get all rents by mail")
+    @GetMapping("/rents/{mail}")
+    public ResponseEntity<List<Rent>> getAllRentsByMail(@PathVariable(value = "mail") String mail) {
+        return ResponseEntity.ok(Collections.singletonList(rentRepository.findAllByMail(mail)));
+    }
+
+//    @ApiOperation(value = "Get all rents by book", notes = "Get all rents by book")
+//    @GetMapping("/rents/{book}")
+//    public ResponseEntity<List<Rent>> getAllRentsByBook(@PathVariable(value = "book") Book book) {
+//        return ResponseEntity.ok(Collections.singletonList(rentRepository.findAllByBook(book)));
+//    }
+
 
 }
 
