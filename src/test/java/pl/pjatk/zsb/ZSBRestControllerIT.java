@@ -77,4 +77,6 @@ public class ZSBRestControllerIT {
                         "\"TEST\",\"language\":\"test\",\"pubyear\":1111,\"publisher\":\"test\",\"owner_mail\":" +
                         "null,\"beginning\":null,\"end\":null,\"available\":true}"));
     }
+
+
 }

@@ -39,8 +39,8 @@ public class ZSBServiceIT {
     @Test
     void shouldFindAll() {
         List<Book> books = new ArrayList<>();
-        Book book = new Book(10, "noname", "idk", Genres.HORROR, "polish", 2010, "pjatk", null, null, null);
-        books.add(1, book);
+        Book book = new Book(10, "test", "test", Genres.TEST, "test", 2222, "test", null, null, null);
+        books.add(book);
         Mockito.when(zsbRepository.findAll()).thenReturn(books);
 
         List<Book> all = zsbService.getAllBooks();
