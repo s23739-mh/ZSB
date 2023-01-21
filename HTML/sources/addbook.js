@@ -131,16 +131,15 @@ function createForm() {
                     "Język: <input type='text' name='language' id='language' value=\'" + data.language + "\'><br>" +
                     "Rok wydania: <input type='text' name='pubyear' id='pubyear' value=\'" + data.pubyear + "\'><br>" +
                     "Wydawca: <input type='text' name='publisher' id='publisher' value=\'" + data.publisher + "\'><br>" +
-                    "Mail właściciela: <input type='email' name='mail' id='owner_mail' required='false' value=\'" + data.owner_ID + "\'><br>" +
+                    "Mail właściciela: <input type='email' name='mail' id='owner_mail' value=\'" + data.owner_ID + "\'><br>" +
                     "Początek wypożyczenia: <input type='date' name='beginning' id='beginning' value=\'" + betterDate1 + "\'><br>" +
                     "Koniec wypożyczenia: <input type='date' name='end' id='end' value=\'" + betterDate2 + "\'><br>" +
                     "<input type='submit'>" +
                     "</form>";
-
                 table.appendChild(form);
                 let option = document.getElementById("genre");
                 option.value = "HORROR";
-
+                document.getElementById("owner_mail").required = false;
             })
             .catch(error => {
 

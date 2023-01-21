@@ -72,6 +72,9 @@ function isLogged() {
                 if (data.type !== "pracownik") {
                     let x = document.getElementById("buttonop");
                     x.parentNode.removeChild(x);
+                }else{
+                    let x = document.getElementById("buttonnormal");
+                    x.parentNode.removeChild(x);
                 }
                 mail = data.mail;
                 var help2 = "http://localhost:8080/db_library/getBookByMail?mail=" + data.mail;
