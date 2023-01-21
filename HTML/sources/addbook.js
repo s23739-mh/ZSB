@@ -51,6 +51,11 @@ function addBook() {
     let beginning = document.forms["addForm"]["beginning"].value;
     let end = document.forms["addForm"]["end"].value;
 
+    if(beginning==null||end==null||beginning==""||end==""){
+        beginning="1970-01-02";
+        end="1970-01-02";
+    }
+    console.log(beginning);
     var help = "http://localhost:8080/db_library/addBook?" +
         "id=0" +
         "&title=" + title +

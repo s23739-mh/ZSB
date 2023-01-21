@@ -8,6 +8,7 @@ import pl.pjatk.zsb.repository.RentRepository;
 import pl.pjatk.zsb.repository.ZSBRepository;
 import pl.pjatk.zsb.service.ZSBService;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -115,8 +116,8 @@ public class ZSBController {
     })
 
     @ApiOperation(value = "Get book by id", notes = "get info about book by id")
-    @GetMapping("/books/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Integer id) {
+    @GetMapping("/book")
+    public ResponseEntity<Book> getBookById(@RequestParam Integer id) {
         Book book = ZSBService.getBookById(id);
         if (book == null) {
             return ResponseEntity.notFound().build();
@@ -133,7 +134,13 @@ public class ZSBController {
     public ResponseEntity<Book> addBook(@RequestParam Integer id, @RequestParam String title, @RequestParam String author, @RequestParam Genres genre,
                                          @RequestParam String language, @RequestParam Integer pubyear, @RequestParam String publisher,
                                          @RequestParam String owner_ID, @RequestParam Date beginning, @RequestParam Date end) {
-        Book book = new Book(id, title, author, genre, language, pubyear, publisher, owner_ID, beginning, end);
+        Date help1=beginning;
+        Date help2=end;
+        if(beginning.compareTo(end)==0){
+            help1=null;
+            help2=null;
+        }
+        Book book = new Book(id, title, author, genre, language, pubyear, publisher, owner_ID, help1, help2);
         return ResponseEntity.ok(ZSBService.addBook(book));
     }
 

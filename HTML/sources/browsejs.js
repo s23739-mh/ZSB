@@ -65,7 +65,7 @@ function getBooks() {
                 subTD.innerHTML = data[i].publisher;
                 mainTR.appendChild(subTD);
                 subTD = document.createElement('td');
-                if (data[i].owner_ID == "" || data[i].owner_ID == null) {
+                if (data[i].owner_mail == "" || data[i].owner_mail == null || data[i].end ==null ) {
                     subTD.innerHTML = 'TAK';
                     subTD.style.color = 'darkgreen';
                 } else {
@@ -120,4 +120,8 @@ function removeFavourite(id) {
         }).catch(error => {
         alert("Nie masz tej książki ulubionej");
     })
+}
+
+function search(text){
+    var help="";
 }
